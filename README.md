@@ -1,4 +1,6 @@
-# 22-01-07 "Error: Could not find or load main class"
+# 22-02-07 "Error: Could not find or load main class"
+
+Support files for https://github.com/johnrengelman/shadow/issues/753 
 
 
 ```

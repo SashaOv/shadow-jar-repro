@@ -11,12 +11,12 @@ ext {
     ]
 }
 
-
 configurations {
     // Dependencies that will be provided at runtime in the cloud execution
     provided
 
     compileOnly.extendsFrom(provided)
+    testImplementation.extendsFrom provided
 }
 
 repositories {
@@ -26,7 +26,11 @@ repositories {
 dependencies {
     implementation "org.scala-lang:scala-library:$ver.scala"
 
+    provided "org.apache.xbean:xbean-asm6-shaded:4.10"
+    provided "org.apache.spark:spark-sql_$ver.scala_rt:$ver.spark"
     provided "org.apache.spark:spark-hive_$ver.scala_rt:$ver.spark"
+
+    testImplementation "org.testng:testng:6.14.3"
 }
 
 tasks.register("allJar", com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar) {
@@ -40,4 +44,11 @@ tasks.register("allJar", com.github.jengelman.gradle.plugins.shadow.tasks.Shadow
     zip64 true
 
     mergeServiceFiles()
+
+    with jar
 }
+
+test {
+    useTestNG()
+}
+
